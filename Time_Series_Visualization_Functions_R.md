@@ -211,11 +211,11 @@ residual.statistical.tests <- function(model){
   if (grepl("ar1", deparse(substitute(model)), ignore.case = T)) {
     e <- residuals(model) %>% 
       features(.resid, car::durbinWatsonTest,  alternative = c("two.sided"))
-    list = list(lb.lag.8 = a,
-                lb.lag.16 = b,
-                lb.lag.24 = c,
-                dw.autocor = e,
-                jb.normality = d)
+    list.of.tests <- list(lb.lag.8 = a,
+                          lb.lag.16 = b,
+                          lb.lag.24 = c, 
+                          dw.autocor = e, 
+                          jb.normality = d)
       if(e$...1 >= 1.75 & e$...1 <= 2.25 ){
         print('Fail to Rejct Null of Zero Autocorrelation for DW Test.')
         print('No Serial Correlation Detected Amongst Residuals.')
@@ -225,10 +225,10 @@ residual.statistical.tests <- function(model){
       }
     } else {
       print('Model is NOT AR1. Hence, DW Test not Applicable')
-      list = list(lb.lag.8 = a,
-                  lb.lag.16 = b,
-                  lb.lag.24 = c,
-                  jb.normality = d)
+      list.of.tests <- list(lb.lag.8 = a, 
+                            lb.lag.16 = b, 
+                            lb.lag.24 = c,
+                            jb.normality = d)
     }
   
   
@@ -256,7 +256,7 @@ residual.statistical.tests <- function(model){
   
   print('-----------------------------------------------------------')
   
-  return(list)
+  return(list.of.tests)
 }
 ```
 
